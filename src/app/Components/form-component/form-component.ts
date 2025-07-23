@@ -22,9 +22,14 @@ export class FormComponent {
     if(this.myForm.valid) {
       const formdata = this.myForm.value as User;
 
-      this.apicall.SaveUser(formdata ).subscribe({
+      this.apicall.SaveUser(formdata).subscribe({
         next: (res) => {
           alert("Data saved successfully");
+          console.log("Response from API: ", res);
+
+          // Add new User to the Local List and Update Service
+          const updatedUsers = [...this.apicall.getCurrentUsers(), res];
+          this.apicall.updateUsersList(updatedUsers);
           this.myForm.reset();
         },
         error: (err) => {

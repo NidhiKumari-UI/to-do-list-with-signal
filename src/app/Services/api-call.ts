@@ -21,6 +21,11 @@ export class ApiCall {
     return this.http.get<User[]>(this.apiUrl);
   }
 
+   //post method to create a new customer
+  SaveUser(userData: User): Observable<User> {
+    return this.http.post<User>(this.apiUrl, userData);
+  }
+
   //Method to update the users list
   updateUsersList(users: User[]): void {
     this.usersSubject.next(users);
@@ -30,8 +35,11 @@ export class ApiCall {
     return this.usersSubject.getValue();
   }
 
-  //post method to create a new customer
-  SaveUser(userData: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, userData);
+  deleteUser(userId: number): Observable<any> {
+    return this.http.delete(this.apiUrl + '/' + userId);
   }
-}
+
+  }
+
+ 
+

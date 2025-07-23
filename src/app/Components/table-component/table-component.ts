@@ -15,15 +15,29 @@ export class TableComponent implements OnInit{
   constructor(private apicall: ApiCall) {}
  userList = signal<User[]>([]);
  
-
+// get Method
  getAllUsers() {
   this.apicall.getUsers().subscribe({
     next: (res: User[]) => {
-      this.userList.set(res);
+      this.apicall.updateUsersList(res);
       console.log("Users data for testing: ", this.userList())
     }
   })
  }
+
+ deteteUserList(userId?: number) {
+    if(userId) {
+      this.apicall.deleteUser(userId).subscribe({
+        next: () => {
+          // Remove the user from the local list
+          this.userList.set(this.userList().filter(user => user.id !== userId));
+          alert("User deleted successfully.");
+        }
+      })
+    }
+ }
+ 
+
 
  ngOnInit() {
   this.getAllUsers();
@@ -33,5 +47,6 @@ export class TableComponent implements OnInit{
         console.log("Users data from BehaviorSubject: ", this.userList())
       }
     });
+    
  }
 }
