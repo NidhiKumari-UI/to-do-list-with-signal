@@ -1,7 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import {ApiCall} from '../../Services/api-call'
 import { HttpClientModule } from '@angular/common/http';
-// import { JsonPipe } from '@angular/common';
 import { User } from '../../user.model';
 
 
@@ -27,6 +26,12 @@ export class TableComponent implements OnInit{
  }
 
  ngOnInit() {
-    this.getAllUsers();
+  this.getAllUsers();
+    this.apicall.users$.subscribe({
+      next: (users: User[]) => {
+        this.userList.set(users);
+        console.log("Users data from BehaviorSubject: ", this.userList())
+      }
+    });
  }
 }

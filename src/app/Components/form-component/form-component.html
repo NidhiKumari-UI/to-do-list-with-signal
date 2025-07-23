@@ -1,18 +1,18 @@
 <div class="form-div">
-    <div class="form-content">
-<h3 class="form-header">New data </h3>
-<form class="form-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
-    <div class="form-control">
-        <label class="form-label"> Discription :</label>
-        <input type="text" formControlName="discription">
-        <div *ngIf="myForm.get('discription')?.invalid && myForm.get('discription')?.touched"> Name is required </div>
-    </div>
-    <div class="form-control">
-        <label class="form-label"> AddedOn : </label>
-        <input type="time" formControlName="time">
-        <div *ngIf="myForm.get('time')?.invalid && myForm.get('time')?.touched"> Time is required</div>
-    </div>
-    <button type="submit" class="submit" [disabled]="myForm.invalid"> submit</button>
-</form>
-</div>
+  <div class="form-content">
+    <h3 class="form-header">New data</h3>
+    <form class="form-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
+      <div class="form-control">
+        <label class="form-label"> Name :</label>
+        <input type="text" formControlName="name">
+        <div *ngIf="!myForm.controls.name.valid && myForm.controls.name.touched">Name is required</div>
+      </div>
+      <div class="form-control">
+        <label class="form-label"> Phone : </label>
+        <input type="text" formControlName="phone">
+        <div *ngIf="!myForm.controls.phone.valid && myForm.controls.phone.touched">Phone is required</div>
+      </div>
+      <button type="submit" class="submit" [disabled]="!myForm.valid">submit</button>
+    </form>
+  </div>
 </div>
