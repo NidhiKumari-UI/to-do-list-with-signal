@@ -1,0 +1,12 @@
+.main {
+    display: flex;
+    height: 100%;
+    margin: 50px;
+}
+.table-section {
+    flex: 0 0 60%;
+}
+.form-section {
+    flex: 0 0 40%;
+    margin: 0 0 0 50px;
+}

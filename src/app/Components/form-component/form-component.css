@@ -1,0 +1,32 @@
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.submit {
+    width: 20%;
+    margin: 20px 0 0 0
+}
+
+.form-header {
+    margin: 0 0 15px 0;
+}
+
+.form-label {
+    cursor: pointer;
+    padding: 0 0 10px 0;
+}
+
+.form-div {
+    background-color: #E8E8E8;
+    width: 92%;
+}
+.form-content {
+   padding: 25px 0 25px 25px;
+}

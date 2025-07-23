@@ -1,0 +1,22 @@
+
+<table>
+    <thead>
+        <tr>
+            <th> Discription </th>
+            <th> AddedOn </th>
+            <th> status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (user of userList(); track user.id) {
+        <tr>
+            <td>{{user.name}}</td>
+            <td>{{user.phone}}</td>
+            <td>
+                <button>Delete</button>
+                <button>edit</button>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
