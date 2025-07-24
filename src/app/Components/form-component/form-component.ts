@@ -12,30 +12,37 @@ import { User } from '../../user.model';
 })
 export class FormComponent {
   myForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    phone: new FormControl('', Validators.required),
+    title: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    addedOn: new FormControl(new Date().toISOString(), Validators.required)
   });
 
   constructor(private apicall: ApiCall) {}
 
   onSubmit(): void {
     if(this.myForm.valid) {
-      const formdata = this.myForm.value as User;
+      const newUser: User = {
+        title: this.myForm.value.title || '',
+        description: this.myForm.value.description || '',
+        addedOn: new Date().toISOString() 
+      };
 
-      this.apicall.SaveUser(formdata).subscribe({
+      this.apicall.CreateUser(newUser).subscribe({
         next: (res) => {
-          alert("Data saved successfully");
-          console.log("Response from API: ", res);
-
-          // Add new User to the Local List and Update Service
-          const updatedUsers = [...this.apicall.getCurrentUsers(), res];
-          this.apicall.updateUsersList(updatedUsers);
+          console.log('cretaed User Resposne:', res);
+          alert("User created successfully");
           this.myForm.reset();
+          this.reload();
         },
         error: (err) => {
-          alert("Not saved Successfully");
+          console.error('Error creating user:', err);
+          alert("Failed to create user");
         }
       });
+      
     }
+  }
+  reload() {
+    window.location.reload();
   }
 }

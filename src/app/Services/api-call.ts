@@ -1,44 +1,37 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from '../user.model';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiCall {
-  private apiUrl: string = "https://jsonplaceholder.typicode.com/users";
-  private usersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  users$: Observable<User[]> = this.usersSubject.asObservable();
+  private apiUrl: string = "http://130.162.46.52:7001/todo";
+ usersSignal!: Signal<User[]>;
+ 
 
-  //Injecting HttpClient in the constructor
-  //to make HTTP requests
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) { 
   //Get Method to get the Users Details
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
+    this.initUsersSignal();
   }
 
-   //post method to create a new customer
-  SaveUser(userData: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, userData);
+  //making the Api call to get the Users 
+  initUsersSignal() {
+    this.usersSignal = toSignal(this.http.get<User[]>(this.apiUrl), {initialValue: []})
   }
+  
+    //delete users 
+   deleteUser(userId: number): Observable<any>{
+     return this.http.delete(`${this.apiUrl}?id=${userId}`);
+   }
 
-  //Method to update the users list
-  updateUsersList(users: User[]): void {
-    this.usersSubject.next(users);
-  }
-
-  getCurrentUsers(): User[] {
-    return this.usersSubject.getValue();
-  }
-
-  deleteUser(userId: number): Observable<any> {
-    return this.http.delete(this.apiUrl + '/' + userId);
-  }
-
+    //Post Method to Create a new User
+    CreateUser(user: User): Observable<User[]> {
+      return this.http.post<User[]>(this.apiUrl, user);
+    }
   }
 
  

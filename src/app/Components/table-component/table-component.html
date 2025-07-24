@@ -2,18 +2,20 @@
 <table>
     <thead>
         <tr>
+            <th> Title </th>
             <th> Discription </th>
             <th> AddedOn </th>
             <th> status</th>
         </tr>
     </thead>
     <tbody>
-        @for (user of userList(); track user.id) {
+        @for (user of users(); track user.id) {
         <tr>
-            <td>{{user.name}}</td>
-            <td>{{user.phone}}</td>
+            <td>{{user.title}}</td>
+            <td>{{user.description}}</td>
+            <td>{{user.addedOn}}</td>
             <td>
-                <button (click)="deteteUserList(user.id)">Delete</button>
+                <button (click)="Delete(user.id)">Delete</button>
                 <button>Edit</button>
             </td>
         </tr>

@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component,Signal} from '@angular/core';
 import {ApiCall} from '../../Services/api-call'
 import { HttpClientModule } from '@angular/common/http';
 import { User } from '../../user.model';
@@ -11,42 +11,37 @@ import { User } from '../../user.model';
   templateUrl: './table-component.html',
   styleUrl: './table-component.css'
 })
-export class TableComponent implements OnInit{
-  constructor(private apicall: ApiCall) {}
- userList = signal<User[]>([]);
- 
-// get Method
- getAllUsers() {
-  this.apicall.getUsers().subscribe({
-    next: (res: User[]) => {
-      this.apicall.updateUsersList(res);
-      console.log("Users data for testing: ", this.userList())
-    }
-  })
- }
+export class TableComponent {
+  users: Signal<User[]>;
 
- deteteUserList(userId?: number) {
-    if(userId) {
-      this.apicall.deleteUser(userId).subscribe({
-        next: () => {
-          // Remove the user from the local list
-          this.userList.set(this.userList().filter(user => user.id !== userId));
-          alert("User deleted successfully.");
-        }
-      })
-    }
- }
- 
+  constructor(private apicall: ApiCall) {
+    //get call 
+    this.users = this.apicall.usersSignal;
+  }
 
-
- ngOnInit() {
-  this.getAllUsers();
-    this.apicall.users$.subscribe({
-      next: (users: User[]) => {
-        this.userList.set(users);
-        console.log("Users data from BehaviorSubject: ", this.userList())
+ Delete(userId?: number) {
+  if(userId) {
+    this.apicall.deleteUser(userId).subscribe({
+      next: (res) => {
+        console.log("User deleted successfully", res);
+        // Refetch Users from API to update the signal
+        this.reload();
+        console.log("User deleted successfully");
+        alert("User deleted successfully");
+      },
+      error: (error) => {
+        console.error("Error deleting user:", error);
+        alert("Failed to delete user");
       }
-    });
-    
+
+    })
+  }
  }
+  reload() {
+    window.location.reload();
+  }
+
 }
+
+
+

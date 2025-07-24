@@ -3,14 +3,19 @@
     <h3 class="form-header">New data</h3>
     <form class="form-container" [formGroup]="myForm" (ngSubmit)="onSubmit()">
       <div class="form-control">
-        <label class="form-label"> Name :</label>
-        <input type="text" formControlName="name">
-        <div *ngIf="!myForm.controls.name.valid && myForm.controls.name.touched">Name is required</div>
+        <label class="form-label"> Title :</label>
+        <input type="text" formControlName="title">
+        <div *ngIf="!myForm.controls.title.valid && myForm.controls.title.touched">Title is required</div>
       </div>
       <div class="form-control">
-        <label class="form-label"> Phone : </label>
-        <input type="text" formControlName="phone">
-        <div *ngIf="!myForm.controls.phone.valid && myForm.controls.phone.touched">Phone is required</div>
+        <label class="form-label"> Description : </label>
+        <input type="text" formControlName="description">
+        <div *ngIf="!myForm.controls.description.valid && myForm.controls.description.touched">Description is required</div>
+      </div>
+      <div class="form-control">
+        <label class="form-label"> Added On : </label>
+        <input type="text" formControlName="addedOn">
+        <div *ngIf="!myForm.controls.addedOn.valid && myForm.controls.addedOn.touched">Added On is required</div>
       </div>
       <button type="submit" class="submit" [disabled]="!myForm.valid">submit</button>
     </form>
