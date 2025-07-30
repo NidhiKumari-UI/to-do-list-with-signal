@@ -4,8 +4,25 @@ table {
   width: 100%;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+}
+
+.search-box {
+  margin-bottom: 20px;
+  width: 50%;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 8px 12px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+.search-box:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 4px #007bff33;
 }

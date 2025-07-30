@@ -10,22 +10,21 @@ import { Observable } from 'rxjs';
 })
 export class ApiCall {
   private apiUrl: string = "http://130.162.46.52:7001/todo";
- usersSignal!: Signal<User[]>;
- 
+  usersSignal!: Signal<User[]>;
 
   constructor(private http: HttpClient) { 
   //Get Method to get the Users Details
-    this.initUsersSignal();
+       this.usersSignal = toSignal(this.http.get<User[]>(this.apiUrl), {initialValue: []})
+
   }
 
   //making the Api call to get the Users 
   initUsersSignal() {
-    this.usersSignal = toSignal(this.http.get<User[]>(this.apiUrl), {initialValue: []})
   }
   
     //delete users 
-   deleteUser(userId: number): Observable<any>{
-     return this.http.delete(`${this.apiUrl}?id=${userId}`);
+   deleteUser(userId: number): Observable<User[]>{
+     return this.http.delete<User[]>(`${this.apiUrl}?id=${userId}`);
    }
 
     //Post Method to Create a new User

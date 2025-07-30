@@ -1,4 +1,4 @@
-import { Component,Signal} from '@angular/core';
+import { Component,computed,signal,Signal} from '@angular/core';
 import {ApiCall} from '../../Services/api-call'
 import { HttpClientModule } from '@angular/common/http';
 import { User } from '../../user.model';
@@ -13,20 +13,27 @@ import { User } from '../../user.model';
 })
 export class TableComponent {
   users: Signal<User[]>;
+  searchItem = signal('');
 
   constructor(private apicall: ApiCall) {
     //get call 
     this.users = this.apicall.usersSignal;
   }
 
+  filteredUsers = computed(() => {
+    const term = this.searchItem().toLowerCase().trim();
+    if(!term) return this.users();
+    return this.users().filter(user => 
+      user.title.toLowerCase().includes(term) || 
+      user.description.toLowerCase().includes(term)
+    );
+  });
+
  Delete(userId?: number) {
   if(userId) {
     this.apicall.deleteUser(userId).subscribe({
       next: (res) => {
-        console.log("User deleted successfully", res);
-        // Refetch Users from API to update the signal
         this.reload();
-        console.log("User deleted successfully");
         alert("User deleted successfully");
       },
       error: (error) => {

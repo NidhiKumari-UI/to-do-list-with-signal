@@ -1,4 +1,12 @@
 
+<div class="search">
+  <input  class="search-box" #searchInput
+  [value]="searchItem()" 
+  (input)="searchItem.set(searchInput.value)"
+  type="text" 
+  placeholder="Search by title or description" >
+</div>
+
 <table>
     <thead>
         <tr>
@@ -9,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @for (user of users(); track user.id) {
+        @for (user of filteredUsers(); track user.id) {
         <tr>
             <td>{{user.title}}</td>
             <td>{{user.description}}</td>
