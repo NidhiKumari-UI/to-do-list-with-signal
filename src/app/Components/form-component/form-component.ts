@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';import { CommonModule } from '@angular/common';
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { ApiCall } from '../../Services/api-call';
 import { User } from '../../user.model';
 
@@ -29,13 +30,11 @@ export class FormComponent {
 
       this.apicall.CreateUser(newUser).subscribe({
         next: (res) => {
-          console.log('cretaed User Resposne:', res);
           alert("User created successfully");
           this.myForm.reset();
           this.reload();
         },
         error: (err) => {
-          console.error('Error creating user:', err);
           alert("Failed to create user");
         }
       });

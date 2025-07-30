@@ -5,17 +5,23 @@
       <div class="form-control">
         <label class="form-label"> Title :</label>
         <input type="text" formControlName="title">
-        <div *ngIf="!myForm.controls.title.valid && myForm.controls.title.touched">Title is required</div>
+        @if (!myForm.controls.title.valid && myForm.controls.title.touched) {
+          <div> Title is required </div>
+        }
       </div>
       <div class="form-control">
         <label class="form-label"> Description : </label>
         <input type="text" formControlName="description">
-        <div *ngIf="!myForm.controls.description.valid && myForm.controls.description.touched">Description is required</div>
+        @if (!myForm.controls.description.valid && myForm.controls.description.touched) {
+          <div> Description is required </div>
+        }
       </div>
       <div class="form-control">
         <label class="form-label"> Added On : </label>
         <input type="text" formControlName="addedOn">
-        <div *ngIf="!myForm.controls.addedOn.valid && myForm.controls.addedOn.touched">Added On is required</div>
+       @if (!myForm.controls.addedOn.valid && myForm.controls.addedOn.touched) {
+        Added On is required
+       }
       </div>
       <button type="submit" class="submit" [disabled]="!myForm.valid">submit</button>
     </form>
