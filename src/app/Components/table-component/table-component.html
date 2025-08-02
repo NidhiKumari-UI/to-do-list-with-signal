@@ -24,7 +24,7 @@
             <td>{{user.addedOn}}</td>
             <td>
                 <button (click)="Delete(user.id)">Delete</button>
-                <button>Edit</button>
+                <button (click)="viewDetails(user.id)"> Details </button>
             </td>
         </tr>
         }

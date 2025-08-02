@@ -1,11 +1,10 @@
 import { Component, signal } from '@angular/core';
-// import { RouterOutlet } from '@angular/router';
-import { FormComponent } from './Components/form-component/form-component';
-import { TableComponent } from './Components/table-component/table-component';
+import { RouterOutlet } from "@angular/router"
+
 
 @Component({
   selector: 'app-root',
-  imports: [FormComponent, TableComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

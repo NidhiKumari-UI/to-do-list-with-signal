@@ -1,0 +1,18 @@
+<div>Debug: {{ user$ | async | json }}</div>
+<div>All Users: {{ user$ | async | json }}</div>
+<div *ngIf="loading$ | async; else detailsBlock">
+  <div>Loading...</div>
+</div>
+
+<ng-template #detailsBlock>
+  <ng-container *ngIf="user$ | async as user; else noUserBlock">
+    <h2>User Details</h2>
+    <p><strong>ID:</strong> {{ user.id }}</p>
+    <p><strong>Title:</strong> {{ user.title }}</p>
+    <p><strong>Description:</strong> {{ user.description }}</p>
+    <p><strong>Added On:</strong> {{ user.addedOn }}</p>
+  </ng-container>
+  <ng-template #noUserBlock>
+    <div>No user found.</div>
+  </ng-template>
+</ng-template>

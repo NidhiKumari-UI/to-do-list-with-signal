@@ -2,7 +2,7 @@ import { Injectable, Signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../user.model';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 
 @Injectable({
@@ -31,6 +31,10 @@ export class ApiCall {
     CreateUser(user: User): Observable<User[]> {
       return this.http.post<User[]>(this.apiUrl, user);
     }
+
+getUsers(): Observable<User[]> {
+  return this.http.get<User[]>(this.apiUrl);
+}
   }
 
  
